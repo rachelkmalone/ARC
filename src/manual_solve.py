@@ -1,3 +1,6 @@
+### NAME: Rachel Malone
+### ID: 21249309
+
 #!/usr/bin/python
 
 import os, sys
@@ -5,15 +8,31 @@ import json
 import numpy as np
 import re
 
-### YOUR CODE HERE: write at least three functions which solve
-### specific tasks by transforming the input x and returning the
-### result. Name them according to the task ID as in the three
-### examples below. Delete the three examples. The tasks you choose
-### must be in the data/training directory, not data/evaluation.
+
 def solve_ed36ccf7(x):
+    
+    """ This function takes the input square array x and then
+    rotates the array by 90 degrees anti-clockwise. This
+    rotated array is then outputted as the result and
+    is called x_out.
+
+    Keyword arguments:
+    x -- input array
+    x_out -- output array
+    """
+    
+    ### Create a list of lists. Each list will represent a row of
+    ### the newly rotated x. The loop begins by iterating through
+    ### the row indexes of x, starting from it's highest index
+    ### and working backwards to zero. It then iterates through
+    ### the column indexes, beginning from zero and working
+    ### up to the highest value
     list_x = [[x[j,i] for j in range(x.shape[1])] for i in range(x.shape[0]-1,-1,-1)]
-    x = np.array(list_x, dtype = int)
-    return x
+    
+    ### Take the list of lists and transform to an array x_out
+    x_out = np.array(list_x, dtype = int)
+    
+    return x_out
 
 def solve_b2862040(x):
     return x
