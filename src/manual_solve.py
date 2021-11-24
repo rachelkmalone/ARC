@@ -38,6 +38,7 @@ def solve_ed36ccf7(x):
 
 def solve_2204b7a8(x):
 
+        
     """ This function takes the input array x and searches for the non-zero
     boundary lines. These boundaries will exist on the top and bottom rows or
     on the left most and irght most column. Any remaining non-zero values will be
@@ -48,8 +49,12 @@ def solve_2204b7a8(x):
     x -- input array
     
     Returns:
-    x -- array after values have been mapped
+    x_out -- output array after values have been mapped
     """
+    
+    ### Create a copy of the input array.
+    ### We will use this to added and change values.
+    x_out = x.copy()
     
     ### Find the 2 colours to map to
     ### Check if they are on the left most/ Right most vertical axis
@@ -65,12 +70,12 @@ def solve_2204b7a8(x):
                 ### Check if this value's column index is less than the middle index.
                 ### If both true, map this value to colour_1_vert.
                 if x[i,j] == 3 and j < x.shape[1] // 2:
-                    x[i,j] = vert_1
+                    x_out[i,j] = vert_1
                 
                 ### If value == 3 but column index is greater than or equal
                 ### to middle index, map this value to colour_2_vert.
                 elif x[i,j] == 3 and j >= x.shape[1] // 2:
-                    x[i,j] = vert_2
+                    x_out[i,j] = vert_2
         
     ### Check if mapping colours are on top/ bottom horizontal axis
     ### Check the colour of the midpoint of top row isn't 0 or 3
@@ -86,18 +91,132 @@ def solve_2204b7a8(x):
                 ### Check if this value's row index is less than the middle index.
                 ### If both true, map this value to colour_1_horiz.
                 if x[i,j] == 3 and i < x.shape[0] // 2:
-                    x[i,j] = horiz_1
+                    x_out[i,j] = horiz_1
                     
                 ### If value == 3 but row index is greater than or equal
                 ### to middle index, map this value to colour_2_horiz.
                 elif x[i,j] == 3 and i >= x.shape[0] // 2:
-                    x[i,j] = horiz_2
+                    x_out[i,j] = horiz_2
+    return x_out
+    
+    
+    
+def solve_a78176bb(x):
 
-    return x
+    """ This function searches for a triangle of the value 5 along a diagonal
+    in the array. Triangles can be formed above and below the diagonaol.
+    The function then creates a diagonal of the same value as the
+    original diagonal along the point diagonally opposite the peak of
+    the triangle of 5's. It then resets any values of 5 to a 0.
 
-def solve_05269061(x):
-    return x
+    Parameters:
+    x -- input array
+    
+    Returns:
+    x_out -- output array after new diagonals have been created
+    """
+    
+    
+    ### Create a copy of the input array.
+    ### We will use this to added and change values.
+    x_out = x.copy()
+    
+    ### Find the colour we will later need to change our desired
+    ### diagonal to. Iterate through each value in x and record
+    ### any values that are not 0 (black) or 5 (grey).
+    ### Should be a list of all the same value.
+    colour_list = [[i,j] for j in range(x.shape[1]) for i in range(x.shape[0])
+                   if x[i,j] != 0 and x[i,j] !=5]
+    
+    ### Extract this value and call it num_color
+    num_colour = x[colour_list[0][0], colour_list[0][1] ]
+    
+    ### Create a list of all indexes in x where the value is 5 (grey)
+    grey_list = [x[i,j] for j in range(x.shape[1]) for i in range(x.shape[0])
+                   if x[i,j] == 5]
+ 
+    ### Track the number of steps across a grey triangle has
+    ### to detemine max length for upper trianlges
+    across_colour_ind = []
+   
+    ### Track the number of steps across a grey triangle has
+    ### to detemine max length for upper trianlges
+    down_colour_ind = []
+    
+    for i in range(x.shape[0]):
+        for j in range(x.shape[1]):
+            
+            
+            
+            ### Check for upper triangles (formed above the coloured diagonal)
+            if x[i,j] in grey_list and x[i,j-1] == num_colour and x[i+1,j] == num_colour:
+                
+                ### Initialise the index of the grey point
+                across_index = [0,0]
+                
+                for k in range(x.shape[1] - j - 1):
+                    
+                    ### Check if the value beside current value is also grey
+                    if x[i,j+k] in grey_list:
+                        
+                        ### Update the index refering to end of grey line
+                        across_index = [i,j+k]
+                
+                ### When the grey line has been fully finished, add the last
+                ### indexes to across_colour_list (list fof grey indexes)
+                across_colour_ind.append(across_index)
+                
+                ### Using the grey point found at the longest edge in the triangle
+                ### (located at across_colour_ind[0]) move diagonally up and to the right
+                ### to find a point on the diagonal we want to make
+                diag_point_upper = [across_colour_ind[0][0]-1, across_colour_ind[0][1]+1]
+                
+                ### Using the point we found on the diagonal, find the left most and top most
+                ### Value on the diagonal
+                diag_start_upper = [diag_point_upper[0]-diag_point_upper[0],
+                                     diag_point_upper[1]-diag_point_upper[0]]
+                
+                ### Fill the diagonal with the correct colour
+                indexes = np.arange(x.shape[1]- diag_start_upper[1])
+                x_out[indexes, indexes + diag_start_upper[1]] = num_colour
+                
+            
+            
+            ### Check for lower triangles (formed below the coloured diagonal)
+            elif x[i,j] in grey_list and x[i-1,j] == num_colour and x[i,j+1] == num_colour:
+                
+                ### Initialise steps down counter
+                down_index = [0,0]
+                
+                for k in range(x.shape[0] - i - 1):
+        
+                    if x[i+k, j] in grey_list:
+                        down_index = [i+k,j]
+                        
+                ### When the grey line has been fully finished, add the last
+                ### indexes to across_colour_list (list fof grey indexes)
+                down_colour_ind.append(down_index)
+                
+                ### Using the grey point found at the longest edge in the triangle
+                ### (located down_colour_ind[0]) move diagonally down and to the left
+                ### to find a point on the diagonal we want to make
+                diag_point_lower = [down_colour_ind[0][0]+1, down_colour_ind[0][1]-1]
 
+                ### Using the point we found on the diagonal, find the left most and top most
+                ### Value on the diagonal
+                diag_start_lower = [diag_point_lower[0]-diag_point_lower[1],
+                                     diag_point_lower[1]-diag_point_lower[1]]
+                
+                ### Fill the diagonal with the correct colour
+                indexes = np.arange(x.shape[0]- diag_start_lower[0])
+                x_out[indexes  + diag_start_lower[0], indexes] = num_colour
+                
+                
+    ### Remove all values that are equal to 5
+    x_out = np.where(x_out == 5, 0, x_out)
+    return x_out
+    
+    
 
 def main():
     # Find all the functions defined in this file whose names are
