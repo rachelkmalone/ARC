@@ -35,9 +35,9 @@ def solve_ed36ccf7(x):
     x_out = np.array(list_x, dtype = int)
     
     return x_out
+    
 
 def solve_2204b7a8(x):
-
         
     """ This function takes the input array x and searches for the non-zero
     boundary lines. These boundaries will exist on the top and bottom rows or
@@ -147,7 +147,6 @@ def solve_a78176bb(x):
         for j in range(x.shape[1]):
             
             
-            
             ### Check for upper triangles (formed above the coloured diagonal)
             if x[i,j] in grey_list and x[i,j-1] == num_colour and x[i+1,j] == num_colour:
                 
@@ -214,6 +213,73 @@ def solve_a78176bb(x):
                 
     ### Remove all values that are equal to 5
     x_out = np.where(x_out == 5, 0, x_out)
+    return x_out
+    
+    
+    
+def solve_67a423a3(x):
+
+    """ This function searches for the intersection of
+    2 non-zero lines. The 8 values that are formed around
+    this point of intersection are then relabelled to 4.
+
+    Parameters:
+    x -- input array
+    
+    Returns:
+    x_out -- output array after new diagonals have been created
+    """
+
+    def find_repeat_ind(arr):
+        
+        """ This function intakes an array of indices and checks
+        which of the 2 rows in the array contains only one unique value.
+        It returns the single unique value of the chosen row.
+
+        Parameters:
+        arr -- input array of indicies.
+    
+        Returns:
+        index -- integer, the single unique value
+        """
+        
+        if len(np.unique(arr[0])) == 1:
+            index = np.unique(arr[0])[0]
+        elif len(np.unique(arr[1])) == 1:
+            index = np.unique(arr[1])[0]
+        return index
+    
+    ### Create a copy of the input array.
+    ### We will use this to added and change values.
+    x_out = x.copy()
+    
+    ### np.unique() returns an ordered list of unique elements
+    ### Extract the 2 non-zero elements (zero at index 0)
+    num_1 = np.unique(x)[1]
+    num_2 = np.unique(x)[2]
+    
+    ### For each value, create an array to show the
+    ### indexes where the value appears
+    num_1_ind = np.asarray(np.where(x == num_1))
+    num_2_ind = np.asarray(np.where(x == num_2))
+    
+    ### Call function find_repeat_ind()
+    ### to find point of intersection of
+    ### the 2 lines. The point of
+    ### intersection would be x_out[index_num_1, index_num_2]
+    index_num_1 = find_repeat_ind(num_1_ind)
+    index_num_2 = find_repeat_ind(num_2_ind)
+    
+    
+    outer_ind = [[-1, -1], [-1, 0], [-1, 1], ### Top row
+                 [0, -1], [0, 1],            ### Middle row
+                 [1, -1], [1, 0], [1, 1]]    ### Bottom row
+    
+    ### Take all indexes around the point of intersection
+    #### and set them to 4
+    for pair in outer_ind:
+        x_out[index_num_1 + pair[0], index_num_2 + pair[1]] = 4
+    
     return x_out
     
     
