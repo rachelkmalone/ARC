@@ -167,6 +167,63 @@ def solve_2204b7a8(x):
     return x_out
     
     
+def solve_1caeab9d(x):
+    
+    """ This function looks at the 3 coloured components
+    (red, yellow, blue) from the input array. The red and
+    yellow components are shifted along their column indexes
+    to be in line with the blue component.
+
+    Parameters:
+    x -- input array
+    
+    Returns:
+    x_out -- output array
+    """
+    
+    ### Create a copy of the input array.
+    ### We will use this to added and change values.
+    x_out = x.copy()
+    
+    ### 1=blue, 2=red, 4=yellow
+    ### Find the biggest columns index where blue values exists
+    blue_list = [[i,j] for j in range(x_out.shape[1]) for i in range(x_out.shape[0])
+                      if x_out[i,j] == 1]
+    ### Find the biggest columns index where blue exists
+    bottom_row_blue = blue_list[-1][0]
+  
+    def colour_array(colour_int, array, bottom_row_blue):
+        
+        ### get indexes where this colour exists
+        colour_list = [[i,j] for j in range(array.shape[1]) for i in range(array.shape[0])
+                      if array[i,j] == colour_int]
+        
+        ### Find the biggest columns index where this colour exists
+        bottom_row_color = colour_list[-1][0]
+        ### Calculate how far up/down this colour shape needs to move
+        diff = bottom_row_blue - bottom_row_color
+        ### Move colour shape
+        colour_list = [[i+diff,j] for [i,j] in colour_list]
+        ### Create an array where only the chosen colour component exists
+        array = np.where(array == colour_int, array, 0)
+        array.fill(0)
+        for indexes in colour_list:
+            array[indexes[0], indexes[1]] = colour_int
+        
+        return array
+    
+    ### Create a unique array for each colour
+    red_array  = colour_array(2, x_out, bottom_row_blue)
+    yellow_array = colour_array(4, x_out, bottom_row_blue)
+    blue_array = colour_array(1, x_out, bottom_row_blue)
+    
+    ### Add arrays together to get final output
+    x_out = np.add(red_array, blue_array)
+    x_out = np.add(yellow_array, x_out)
+        
+        
+    return x_out
+    
     
 def solve_a78176bb(x):
 
