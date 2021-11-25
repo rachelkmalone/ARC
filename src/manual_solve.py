@@ -85,8 +85,10 @@ def solve_3de23699(x):
     
     ### Trim zeros outside rectangle where non-zero value exist
     non_zero = np.nonzero(x_out)
-    x_out = x_out[non_zero[0].min():non_zero[0].max()+1,
-                  non_zero[1].min():non_zero[1].max()+1]
+    sorted_rows = np.sort(non_zero[0])
+    sorted_cols = np.sort(non_zero[1])
+    x_out = x_out[sorted_rows[0]: sorted_rows[-1]+1,
+                  sorted_cols[0]: sorted_cols[-1]+1]
     
     ### Find colour in corners and colour of inner parts
     colour_1 = x_out[0,0]
