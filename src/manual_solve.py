@@ -64,6 +64,43 @@ def solve_ed36ccf7(x):
     
     return x_out
     
+def solve_3de23699(x):
+    
+    """ This function creates a rectangle around the outermost
+    non-zero values and then removes zero values around it. Next
+    it changes the inner values to the same value as the
+    rectangle corners and then removes a border of width 1
+    from the array.
+
+    Parameters:
+    x -- input array
+    
+    Returns:
+    x_out -- output array
+    """
+    
+    ### Create a copy of the input array.
+    ### We will use this to added and change values.
+    x_out = x.copy()
+    
+    ### Trim zeros outside rectangle where non-zero value exist
+    non_zero = np.nonzero(x_out)
+    x_out = x_out[non_zero[0].min():non_zero[0].max()+1,
+                  non_zero[1].min():non_zero[1].max()+1]
+    
+    ### Find colour in corners and colour of inner parts
+    colour_1 = x_out[0,0]
+    colour_2 = [value for value in np.unique(x_out) if value != colour_1 and value != 0]
+    
+
+    ### Change inner colours to colours in corner
+    x_out = np.where(x_out != colour_2, x_out, colour_1)
+    
+    ### Remove border by moving in 1 index at every side
+    x_out = x_out[1:-1, 1:-1]
+
+    return x_out
+    
 
 def solve_2204b7a8(x):
         
