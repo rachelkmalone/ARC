@@ -9,6 +9,34 @@ import numpy as np
 import re
 
 
+def solve_c1d99e64(x):
+    
+    """ This function searches for rows and columns that
+    are entirely made of zeros. It then changes these
+    rows/ columns to be filled with value 2
+
+    Parameters:
+    x -- input array
+    
+    Returns:
+    x_out -- output array
+    """
+    
+    ### Create a copy of the input array.
+    ### We will use this to added and change values.
+    x_out = x.copy()
+    
+    ### Find rows and columns where only zeros appear
+    row_zero = [row for row in range(x.shape[0]) if len(np.unique(x[row])) ==1]
+    col_zero = [col for col in range(x.shape[1]) if len(np.unique(x.transpose()[col])) ==1 ]
+    
+    ### Change the chosen rows and columns to be value 2
+    x_out[row_zero, :] = 2
+    x_out[:, col_zero] = 2
+
+    return x_out
+
+
 def solve_ed36ccf7(x):
     
     """ This function takes the input array x and then
