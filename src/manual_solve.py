@@ -357,7 +357,7 @@ def solve_a78176bb(x):
                 
                 
     ### Remove all values that are equal to 5
-    x_out = np.where(x_out == 5, 0, x_out)
+    x_out = np.where(x_out != 5, x_out, 0)
     return x_out
     
     
