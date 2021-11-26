@@ -1,5 +1,6 @@
 ### NAME: Rachel Malone
 ### ID: 21249309
+### Git URL: https://github.com/rachelkmalone/ARC
 
 #!/usr/bin/python
 
@@ -20,6 +21,9 @@ def solve_c1d99e64(x):
     
     Returns:
     x_out -- output array
+    
+    Training Grids Solved: 3/3
+    Test Grids Solved: 1/1
     """
     
     ### Create a copy of the input array.
@@ -49,6 +53,9 @@ def solve_ed36ccf7(x):
     
     Returns:
     x_out -- output array
+    
+    Training Grids Solved: 4/4
+    Test Grids Solved: 1/1
     """
     
     ### Create a list of lists. Each list will represent a row of
@@ -77,6 +84,9 @@ def solve_3de23699(x):
     
     Returns:
     x_out -- output array
+    
+    Training Grids Solved: 4/4
+    Test Grids Solved: 1/1
     """
     
     ### Create a copy of the input array.
@@ -117,6 +127,9 @@ def solve_2204b7a8(x):
     
     Returns:
     x_out -- output array after values have been mapped
+    
+    Training Grids Solved: 3/3
+    Test Grids Solved: 1/1
     """
     
     ### Create a copy of the input array.
@@ -179,6 +192,9 @@ def solve_1caeab9d(x):
     
     Returns:
     x_out -- output array
+    
+    Training Grids Solved: 3/3
+    Test Grids Solved: 1/1
     """
     
     ### Create a copy of the input array.
@@ -240,6 +256,9 @@ def solve_a78176bb(x):
     
     Returns:
     x_out -- output array after new diagonals have been created
+    
+    Training Grids Solved: 3/3
+    Test Grids Solved: 1/1
     """
     
     
@@ -356,6 +375,9 @@ def solve_a3df8b1e(x):
     
     Returns:
     x_out -- output array
+    
+    Training Grids Solved: 3/3
+    Test Grids Solved: 1/1
     """
     
     ### Fill diagonal from Left to Right Fill
@@ -420,6 +442,9 @@ def solve_67a423a3(x):
     
     Returns:
     x_out -- output array after new diagonals have been created
+    
+    Training Grids Solved: 3/3
+    Test Grids Solved: 1/1
     """
 
     def find_repeat_ind(arr):
