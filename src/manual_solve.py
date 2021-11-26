@@ -193,7 +193,9 @@ def solve_1caeab9d(x):
     bottom_row_blue = blue_list[-1][0]
   
     def colour_array(colour_int, array, bottom_row_blue):
-        
+        '''Grab all points of colour_int and move them along column
+        to be inline with the blue component
+        '''
         ### get indexes where this colour exists
         colour_list = [[i,j] for j in range(array.shape[1]) for i in range(array.shape[0])
                       if array[i,j] == colour_int]
@@ -339,6 +341,72 @@ def solve_a78176bb(x):
     x_out = np.where(x_out == 5, 0, x_out)
     return x_out
     
+    
+def solve_a3df8b1e(x):
+    
+    """ This function intakes an array x, and creates a
+    blue diagonal from the bottom left point up and to the
+    right. It then takes the end point of that diagonal
+    and creates another diagonal up and left from there.
+    This process is repeated until the the values reach the
+    top row of the array.
+
+    Parameters:
+    x -- input array
+    
+    Returns:
+    x_out -- output array
+    """
+    
+    ### Fill diagonal from Left to Right Fill
+    def left_to_right(start_point, arr):
+        '''Fill diagonal from start_point up and to the right'''
+        
+        for j in range(arr.shape[1]):
+            ### Set values on right/up diagonal to 1
+            arr[start_point[0] - j, start_point[1]+j]  = 1
+            ### Save point
+            end_point = [start_point[0] - j, start_point[1]+j]
+            ### Check if we reached top row of array
+            if end_point[0] == 0:
+                break
+            else:
+                continue
+        return end_point, arr
+
+    ### Fill diagonal from Right to left fill
+    def right_to_left(start_point, arr):
+        '''Fill diagonal from start_point up and to the left'''
+        
+        for j in range(arr.shape[1]):
+            ### Set values on left/up diagonal to 1
+            arr[start_point[0]-j,start_point[1]-j] = 1
+            ### Save point
+            end_point = [start_point[0]-j,start_point[1]-j]
+            ### Check if we reached top row of array
+            if end_point[0] == 0:
+                break
+            else:
+                continue
+        return end_point, arr
+   
+
+    ### Create a copy of the input array.
+    ### We will use this to added and change values.
+    x_out = x.copy()
+    
+    ### Grab original start point of diagonals
+    end_point = [x.shape[0]-1, 0]
+    
+    ### Loop will run as long the end point isn't on the top row
+    while end_point[0] != 0:
+        ### Run diagonal up and right
+        end_point, x_out = left_to_right(end_point, x_out)
+        ### Run diagonal up and left
+        end_point, x_out = right_to_left(end_point, x_out)
+    
+    
+    return x_out
     
     
 def solve_67a423a3(x):
