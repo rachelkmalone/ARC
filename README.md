@@ -3,8 +3,8 @@ This repository contains solutions to 8 of the Abstraction and Reasoning Corpus 
 
 Tasks: c1d99e64, ed36ccf7, 3de23699, 2204b7a8, 1caeab9d, a78176bb, a3df8b1e, 67a423a3
 
-This ARC repository has been forked from https://github.com/jmmcd/ARC 
-The main changes between the repositories can be found in src/manua_solve.py. In this repository, the src/manua_solve.py. has functions written in to solve the 8 tasks listed above. Each function is called solve_* () (replace * with the task name). Each function inputs an array and outputs an adjusted array. 
+This ARC repository has been forked from https://github.com/jmmcd/ARC .
+The main changes between the repositories can be found in src/manual_solve.py. In this repository, the src/manual_solve.py. has functions written in to solve the 8 tasks listed above. Each function is called solve_* () (replace * with the task name). Each function inputs an array and outputs an adjusted array. 
 
 # The Abstraction and Reasoning Corpus (ARC)
 
