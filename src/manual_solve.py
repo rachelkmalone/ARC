@@ -10,6 +10,34 @@ import numpy as np
 import re
 
 
+### Code Commentary
+# The following ARC tasks were solved as part of Assignment 3:
+# Task: c1d99e64, ed36ccf7, 3de23699, 2204b7a8, 1caeab9d, a78176bb, a3df8b1e, 67a423a3
+# The doc string created for each function details the task function and how many of the training and test grids were
+# solved correctly.
+
+# While most of the tasks selected for this assignment vary in difficulty and the task form itself, there are some similarities
+# to be seen such as the use of libraries. A key library used throughout the solve_* functions is numpy. Numpy is a python library
+# that offers support with matrix and array manipulation. In the functions it is denoted as "np". The np.where() function is commonly
+# used to find and replace values in the arrays. It works by giving a condition, array and value to change to as parameters. It is
+# seen in tasks 3de23699, 1caeab9d, a78176bb and 67a423a3. Np.unique() is frequently used to help locate the "colour" values found in the
+# arrays. The function np.array() is also used in the functions. It tasks an input (these can ranges from lists to dataframes) and
+# turns them into an array. This is helpful after using a list comprehension to create a list of the array values to turn this output
+# into a list. Other numpy functions used include np.nonzero(), np.sort() and np.add().
+
+# Another commonly used practise across the solve_* functions is the use of list comprehensions. These were regularly used to help
+# fund the indexes where a certain "colour's" corresponding value existed. For example, the code "grey_list = [x[i,j] for j in range(x.shape[1])
+# for i in range(x.shape[0]) if x[i,j] == 5] finds all indexes with corresponding value of 5 (grey) in the array and saves them to a list (see task
+# a78176bb). However, list comprehensions were also used to the change and over-write values at a particular instance. For example, in tasks
+# ed36ccf7, a list comprehension is used to change indexes so that the ouputted array is turned 90 degress anti-clockwise.
+
+# The task themselves also saw a few similarities between them. Many of them included changing colours to a different colour. For example,
+# tasks c1d99e64 sought to change any row/column full of zeros to a 2 or tasks 67a423a3 looked to change the 8 points around the intersection
+# of non-zero lines to the value 4. Another similarity seen across tasks was creating diagonals throughout the array. Tasks a78176bb and a3df8b1e
+# both required the creation of diagonal lines starting from specific points in the array. Initially, it was believed numpy functions such
+# as np.fill_diagonal() or np.diagonal() could be used but due to the specific points where the diagonal needed to be created, it proved easier
+# to take an interative approach to change the values to create the desired final array.
+
 def solve_c1d99e64(x):
     
     """ This function searches for rows and columns that
