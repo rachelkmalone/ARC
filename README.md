@@ -1,3 +1,11 @@
+# CT5148 - Assignment 3
+This repository contains solutions to 8 of the Abstraction and Reasoning Corpus problems (more information on ARC listed below). This repository was created as part of NUI Galway module CT5148 Programming and Tools for Artificial Intelligence Assignment 3. While the Abstraction and Reasoning Corpus (ARC) has approximately 400 tasks, the following have been chosen for the purposes of this assignment:
+
+Tasks: c1d99e64, ed36ccf7, 3de23699, 2204b7a8, 1caeab9d, a78176bb, a3df8b1e, 67a423a3
+
+This ARC repository has been forked from https://github.com/jmmcd/ARC 
+The main changes between the repositories can be found in src/manua_solve.py. In this repository, the src/manua_solve.py. has functions written in to solve the 8 tasks listed above. Each function is called solve_* () (replace * with the task name). Each function inputs an array and outputs an adjusted array. 
+
 # The Abstraction and Reasoning Corpus (ARC)
 
 This repository contains the ARC task data, as well as a browser-based interface for humans to try their hand at solving the tasks manually.
