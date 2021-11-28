@@ -36,7 +36,10 @@ import re
 # of non-zero lines to the value 4. Another similarity seen across tasks was creating diagonals throughout the array. Tasks a78176bb and a3df8b1e
 # both required the creation of diagonal lines starting from specific points in the array. Initially, it was believed numpy functions such
 # as np.fill_diagonal() or np.diagonal() could be used but due to the specific points where the diagonal needed to be created, it proved easier
-# to take an interative approach to change the values to create the desired final array.
+# to take an interative approach to change the values to create the desired final array. A third example of commonalities between task description
+# included "moving" values around the array. Task ed36ccf7 (turn array 90 degrees anti-clockwise) and 1caeab9d (moving blocks of red and yellow to be
+# in line with blue) both seek to change the indexes of particular values in the array giving the look that those values have been moved.
+
 
 def solve_c1d99e64(x):
     
